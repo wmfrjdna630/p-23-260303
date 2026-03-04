@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class PersonService {
 
     private int version = 1;
-//    private ArrayList<Integer> nums;
 
     public PersonService(int version) {
         this.version = version;

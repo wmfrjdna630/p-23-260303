@@ -1,8 +1,11 @@
 package com.back;
 
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 
 @Configuration
@@ -25,11 +28,6 @@ public class AppConfig {
         return 100;
     }
 
-//    @Bean
-//    public ApplicationRunner myApplicationRunner() {
-//        return new MyApplicationRunner();
-//    }
-
     @Bean
     @Order(1)
     public ApplicationRunner myApplicationRunner1() {
@@ -46,13 +44,26 @@ public class AppConfig {
         };
     }
 
+    @Autowired
+    @Lazy
+    private AppConfig self;
 
-//    @Bean
-//    public ArrayList<Integer> numbers() {
-//        System.out.println("numbers 빈이 생성되었습니다.");
-//        return new ArrayList(List.of(1,2,3));
-//    }
+    @Bean
+    public ApplicationRunner myApplicationRunner3() {
+        return args -> {
+            work1();
+            work2();
+        };
+    }
 
+    @Transactional
+    public void work1(){
+        System.out.println("work1");
+    }
 
+    @Transactional
+    public void work2(){
+        System.out.println("work2");
+    }
 
 }

@@ -10,15 +10,8 @@ import java.util.Optional;
 @Repository
 public class WiseSayingRepository {
 
-    private List<WiseSaying> wiseSayingList = new ArrayList<>() {{
-        add(new WiseSaying(1, "명언1", "작가1"));
-        add(new WiseSaying(2, "명언2", "작가2"));
-        add(new WiseSaying(3, "명언3", "작가3"));
-        add(new WiseSaying(4, "명언4", "작가4"));
-        add(new WiseSaying(5, "명언5", "작가5"));
-    }};
-
-    private int lastId = 5;
+    private List<WiseSaying> wiseSayingList = new ArrayList<>();
+    private int lastId = 0;
 
     public WiseSaying save(WiseSaying wiseSaying) {
 
@@ -42,5 +35,9 @@ public class WiseSayingRepository {
 
     public void delete(WiseSaying wiseSaying) {
         wiseSayingList.remove(wiseSaying);
+    }
+
+    public long count() {
+        return wiseSayingList.size();
     }
 }

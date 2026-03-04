@@ -1,8 +1,8 @@
 package com.back.global.initData;
 
 import com.back.domain.member.entity.Member;
-import com.back.domain.member.repository.MemberRepository;
 import com.back.domain.member.service.MemberService;
+import com.back.domain.wiseSaying.service.WiseSayingService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class BaseInitData {
     @Lazy
     private BaseInitData self;
     private final MemberService memberService;
-    @Autowired
-    private MemberRepository memberRepository;
+    private final WiseSayingService wiseSayingService;
 
     @Bean
     ApplicationRunner initDataRunner() {
         return args -> {
             self.work1();
             self.work2();
+            work3();
         };
     }
 
@@ -51,5 +51,18 @@ public class BaseInitData {
         Member m1 = memberService.findByUsername("user1").get();
         m1.setNickname("유저1-수정");
         System.out.println("수정");
+    }
+
+    void work3() {
+
+        if(wiseSayingService.count() > 0) {
+            return;
+        }
+
+        wiseSayingService.write("명언1", "작가1");
+        wiseSayingService.write("명언2", "작가2");
+        wiseSayingService.write("명언3", "작가3");
+        wiseSayingService.write("명언4", "작가4");
+        wiseSayingService.write("명언5", "작가5");
     }
 }

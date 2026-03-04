@@ -42,6 +42,7 @@ public class WiseSayingService {
 
     public void modify(WiseSaying wiseSaying, String content, String author) {
         wiseSaying.update(content, author);
+        wiseSayingRepository.save(wiseSaying);
     }
 
     public long count() {

@@ -3,13 +3,13 @@ package com.back.global.initData;
 import com.back.domain.member.entity.Member;
 import com.back.domain.member.service.MemberService;
 import com.back.domain.wiseSaying.service.WiseSayingService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -28,6 +28,7 @@ public class BaseInitData {
             self.work2();
             work3();
         };
+
     }
 
     @Transactional
@@ -50,7 +51,6 @@ public class BaseInitData {
     void work2() {
         Member m1 = memberService.findByUsername("user1").get();
         m1.setNickname("유저1-수정");
-        System.out.println("수정");
     }
 
     void work3() {

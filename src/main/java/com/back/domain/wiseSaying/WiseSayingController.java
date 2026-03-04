@@ -77,4 +77,33 @@ public class WiseSayingController {
 
         return "%d번 명언이 삭제되었습니다".formatted(id);
     }
+
+    @GetMapping("/modify/{id}")
+    @ResponseBody
+    public String modify(
+            @PathVariable int id,
+            @RequestParam(defaultValue = "기본값") String content,
+            @RequestParam(defaultValue = "기본값") String author
+    ) {
+
+        WiseSaying wiseSaying = findById(id);
+        wiseSaying.setContent(content);
+        wiseSaying.setAuthor(author);
+
+        return "%d번 명언이 수정되었습니다.".formatted(wiseSaying.getId());
+    }
+
+    private WiseSaying findById(int id) {
+        Optional<WiseSaying> wiseSaying = wiseSayingList.stream()
+                .filter(w -> w.getId() == id)
+                .findFirst();
+
+        if(wiseSaying.isEmpty()) {
+            throw new RuntimeException("%d번 명언은 존재하지 않습니다.".formatted(id));
+        }
+
+        return wiseSaying.get();
+
+
+    }
 }

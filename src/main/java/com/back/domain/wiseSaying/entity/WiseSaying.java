@@ -13,8 +13,17 @@ public class WiseSaying {
     private String content;
     private String author;
 
+    public WiseSaying(String content, String author) {
+        this.content = content;
+        this.author = author;
+    }
+
     public void update(String content, String author) {
         this.content = content;
         this.author = author;
+    }
+
+    public boolean isNew() {
+        return this.id == 0;
     }
 }

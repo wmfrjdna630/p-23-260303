@@ -1,6 +1,7 @@
 package com.back.global.initData;
 
 import com.back.member.entity.Member;
+import com.back.member.repository.MemberRepository;
 import com.back.member.service.MemberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,15 @@ public class BaseInitData {
     @Lazy
     private BaseInitData self;
     private final MemberService memberService;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Bean
     ApplicationRunner initDataRunner() {
         return args -> {
             self.work1();
+            self.work2();
         };
-
     }
 
     @Transactional
@@ -41,5 +44,12 @@ public class BaseInitData {
         Member member5 = memberService.join("user3", "유저3");
 
 
+    }
+
+    @Transactional
+    void work2() {
+        Member m1 = memberService.findByUsername("user1").get();
+        m1.setNickname("유저1-수정");
+        System.out.println("수정");
     }
 }

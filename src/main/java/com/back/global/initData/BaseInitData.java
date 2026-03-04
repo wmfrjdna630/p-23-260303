@@ -1,8 +1,8 @@
 package com.back.global.initData;
 
-import com.back.member.entity.Member;
-import com.back.member.repository.MemberRepository;
-import com.back.member.service.MemberService;
+import com.back.domain.member.entity.Member;
+import com.back.domain.member.repository.MemberRepository;
+import com.back.domain.member.service.MemberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

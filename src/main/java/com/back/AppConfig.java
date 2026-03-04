@@ -51,8 +51,8 @@ public class AppConfig {
     @Bean
     public ApplicationRunner myApplicationRunner3() {
         return args -> {
-            work1();
-            work2();
+            self.work1();
+            self.work2();
         };
     }
 

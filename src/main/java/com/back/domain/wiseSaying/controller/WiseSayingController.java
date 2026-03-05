@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.controller;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
+import com.back.standard.MarkdownService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class WiseSayingController {
 
     private final WiseSayingService wiseSayingService;
+
+    private final MarkdownService markdownService;
 
     @GetMapping("/write")
     @ResponseBody
@@ -54,11 +57,14 @@ public class WiseSayingController {
     ) {
 
         WiseSaying wiseSaying = wiseSayingService.findById(id);
+        String html = markdownService.toHtml(wiseSaying.getContent());
+
         return """
                 <h1>번호 : %s</h1>
-                <div>명언 : %s</div>
+
                 <div>작가 : %s</div>
-                """.formatted(wiseSaying.getId(), wiseSaying.getContent(), wiseSaying.getAuthor());
+                <div>명언 : %s</div>
+                """.formatted(wiseSaying.getId(),  wiseSaying.getAuthor(), html);
     }
 
     @GetMapping("/delete/{id}")
